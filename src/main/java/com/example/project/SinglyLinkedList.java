@@ -143,7 +143,7 @@ public class SinglyLinkedList<T> {
         if (actual!=null){
             Node<T> siguiente = actual.getNext();  
 
-            if (position == 0){
+            if (position == 1){
                 actual.setNext(null); 
                 actual.setNext(new Node<T>(data, siguiente));
             } else {
@@ -173,8 +173,8 @@ public class SinglyLinkedList<T> {
     public static void main(final String[] args) {
 
         // testExercicio1();
-        //testExercicio2();
-        testExercicio3();       
+        testExercicio2();
+        //testExercicio3();       
 
     }
 
