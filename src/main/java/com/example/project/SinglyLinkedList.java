@@ -133,9 +133,11 @@ public class SinglyLinkedList<T> {
 
     // Inserta un nuevo nodo en una posicion especifica de la lista
     public void insertNth(T data, int position) {
-
+        if(position == 0){
+            addFirst(data);
+        } else {
         insertarActual(data, position, first);
-
+        }
     }
 
     public void insertarActual(T data, int position, Node<T> actual){
@@ -146,6 +148,7 @@ public class SinglyLinkedList<T> {
             if (position == 1){
                 actual.setNext(null); 
                 actual.setNext(new Node<T>(data, siguiente));
+                size ++;
             } else {
                 insertarActual(data, position-1, siguiente);
         }
@@ -155,13 +158,18 @@ public class SinglyLinkedList<T> {
 
     // Elimina el nodo de una posicion especifica de la lista
     public void deleteNth(int position) {
+        if(position ==0){
+            first = first.getNext();
+        } else {
         borrarActual(position, first, first);
+        }
     }
 
     public void borrarActual(int position, Node<T> actual,Node<T> anterior){
         if (actual != null){
             if (position==0){  
                 anterior.setNext(actual.getNext());
+                size--;
             }else {
                 anterior = actual;
                 actual = actual.getNext();
@@ -173,8 +181,8 @@ public class SinglyLinkedList<T> {
     public static void main(final String[] args) {
 
         // testExercicio1();
-        testExercicio2();
-        //testExercicio3();       
+        //testExercicio2();
+        testExercicio3();       
 
     }
 
