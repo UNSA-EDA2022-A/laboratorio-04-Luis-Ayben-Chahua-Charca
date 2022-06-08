@@ -1,5 +1,7 @@
 package com.example.project;
 
+import java.util.ArrayList;
+
 public class SinglyLinkedList<T> {
     private Node<T> first; // Primero nodo de la lista
     private int size; // Tamano de la lista
@@ -100,23 +102,86 @@ public class SinglyLinkedList<T> {
 
     // Elimina aquellos nodos de la lista que esten duplicados
     public void deleteDuplicates() {
+        ArrayList<T> memoria = new ArrayList<T>();
+        Node<T> actual = first;
+        Node<T> anterior = first;
 
+        while (actual != null){
+            if (contiene(memoria,actual.getValue())){
+                anterior.setNext(actual.getNext());
+                size --;
+            } else {
+                memoria.add(actual.getValue());
+                anterior = actual;
+            }
+            actual = actual.getNext();
+        }
+
+         
     }
+
+    public boolean contiene(ArrayList<T> arreglo, T a){
+
+        for (int i=0;i<arreglo.size();i++){
+            if (arreglo.get(i)==a){
+                return true;
+            }
+        }        
+        return false;
+    }
+
 
     // Inserta un nuevo nodo en una posicion especifica de la lista
     public void insertNth(T data, int position) {
+        if(position == 0){
+            addFirst(data);
+        } else {
+        insertarActual(data, position, first);
+        }
+    }
+
+    public void insertarActual(T data, int position, Node<T> actual){
+        
+        if (actual!=null){
+            Node<T> siguiente = actual.getNext();  
+
+            if (position == 1){
+                actual.setNext(null); 
+                actual.setNext(new Node<T>(data, siguiente));
+                size ++;
+            } else {
+                insertarActual(data, position-1, siguiente);
+        }
+        }
 
     }
 
     // Elimina el nodo de una posicion especifica de la lista
     public void deleteNth(int position) {
+        if(position ==0){
+            first = first.getNext();
+        } else {
+        borrarActual(position, first, first);
+        }
+    }
 
+    public void borrarActual(int position, Node<T> actual,Node<T> anterior){
+        if (actual != null){
+            if (position==0){  
+                anterior.setNext(actual.getNext());
+                size--;
+            }else {
+                anterior = actual;
+                actual = actual.getNext();
+                borrarActual(position-1, actual, anterior);
+            }
+        }
     }
 
     public static void main(final String[] args) {
 
         // testExercicio1();
-        // testExercicio2();
+        //testExercicio2();
         testExercicio3();       
 
     }
@@ -136,6 +201,7 @@ public class SinglyLinkedList<T> {
         list.deleteDuplicates();
 
         System.out.println(list);
+        System.out.println("fin del juego");
     }
 
     public static void testExercicio2(){
@@ -148,8 +214,10 @@ public class SinglyLinkedList<T> {
 
         System.out.println(list);
 
-        list.insertNth('c', 2);
+        
 
+        list.insertNth('c', 2);
+        
         System.out.println(list);
     }
 
